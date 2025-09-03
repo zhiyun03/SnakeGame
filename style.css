@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#gameCanvas {
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    background: #ecf0f1;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 200px;
+}
+
+.score-board {
+    background: #3498db;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+#startBtn {
+    background: #27ae60;
+}
+
+#startBtn:hover {
+    background: #219a52;
+    transform: translateY(-2px);
+}
+
+#pauseBtn {
+    background: #f39c12;
+}
+
+#pauseBtn:hover {
+    background: #e67e22;
+    transform: translateY(-2px);
+}
+
+#restartBtn {
+    background: #e74c3c;
+}
+
+#restartBtn:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.instructions {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.instructions p {
+    color: #7f8c8d;
+    font-size: 0.9em;
+    margin: 0;
+}
+
+.speed-control {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #9b59b6;
+}
+
+.speed-control label {
+    display: block;
+    color: #7f8c8d;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.speed-control input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    margin: 10px 0;
+    -webkit-appearance: none;
+}
+
+.speed-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #9b59b6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.speed-control input[type="range"]::-webkit-slider-thumb:hover {
+    background: #8e44ad;
+    transform: scale(1.2);
+}
+
+.speed-control input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #9b59b6;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.speed-control input[type="range"]::-moz-range-thumb:hover {
+    background: #8e44ad;
+    transform: scale(1.2);
+}
+
+#speedValue {
+    display: block;
+    text-align: center;
+    color: #9b59b6;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.game-over {
+    background: rgba(231, 76, 60, 0.9);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin-top: 20px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.game-over h2 {
+    margin-bottom: 15px;
+    font-size: 2em;
+}
+
+.game-over button {
+    background: white;
+    color: #e74c3c;
+    margin-top: 15px;
+}
+
+.game-over button:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .game-container {
+        flex-direction: column;
+    }
+    
+    #gameCanvas {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+}
