@@ -4,7 +4,8 @@ const CANVAS_SIZE = 400;
 let gameSpeed = 150; // 默认速度
 
 // 游戏变量
-let canvas, ctx;
+let canvas = null;
+let ctx = null;
 let snake = [];
 let food = {};
 let direction = 'right';
@@ -16,7 +17,15 @@ let isGameOver = false;
 
 // 初始化游戏
 function initGame() {
-    canvas = document.getElementById('gameCanvas');
+    // 再次检查canvas元素（作为备用方案）
+    if (!canvas) {
+        canvas = document.getElementById('gameCanvas');
+        if (!canvas) {
+            console.error('找不到canvas元素！');
+            return;
+        }
+    }
+    
     ctx = canvas.getContext('2d');
     
     // 初始化蛇
@@ -299,73 +308,88 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// 触摸控制（移动设备支持）
-let touchStartX = 0;
-let touchStartY = 0;
 
-canvas.addEventListener('touchstart', (event) => {
-    touchStartX = event.touches[0].clientX;
-    touchStartY = event.touches[0].clientY;
-    event.preventDefault();
-});
 
-canvas.addEventListener('touchmove', (event) => {
-    event.preventDefault();
-});
 
-canvas.addEventListener('touchend', (event) => {
-    if (isGameOver) return;
-    
-    const touchEndX = event.changedTouches[0].clientX;
-    const touchEndY = event.changedTouches[0].clientY;
-    
-    const diffX = touchEndX - touchStartX;
-    const diffY = touchEndY - touchStartY;
-    
-    if (Math.abs(diffX) > Math.abs(diffY)) {
-        // 水平滑动
-        if (diffX > 0 && direction !== 'left') {
-            nextDirection = 'right';
-        } else if (diffX < 0 && direction !== 'right') {
-            nextDirection = 'left';
-        }
-    } else {
-        // 垂直滑动
-        if (diffY > 0 && direction !== 'up') {
-            nextDirection = 'down';
-        } else if (diffY < 0 && direction !== 'down') {
-            nextDirection = 'up';
-        }
-    }
-    
-    event.preventDefault();
-});
-
-// 速度滑块事件监听
-document.getElementById('speedSlider').addEventListener('input', function(e) {
-    gameSpeed = 350 - e.target.value; // 反转值：滑块值越大，速度越快
-    
-    // 更新速度显示文本
-    const speedValue = document.getElementById('speedValue');
-    if (gameSpeed <= 100) {
-        speedValue.textContent = '极快';
-    } else if (gameSpeed <= 150) {
-        speedValue.textContent = '快速';
-    } else if (gameSpeed <= 200) {
-        speedValue.textContent = '中速';
-    } else if (gameSpeed <= 250) {
-        speedValue.textContent = '慢速';
-    } else {
-        speedValue.textContent = '极慢';
-    }
-    
-    // 如果游戏正在进行，立即应用新速度
-    if (gameInterval && !isPaused && !isGameOver) {
-        updateGameSpeed();
-    }
-});
 
 // 页面加载完成后初始化游戏
 document.addEventListener('DOMContentLoaded', function() {
+    // 初始化canvas
+    canvas = document.getElementById('gameCanvas');
+    
+    // 确保canvas元素存在
+    if (!canvas) {
+        console.error('找不到canvas元素！');
+        return;
+    }
+    
     initGame();
+    
+    // 触摸控制（移动设备支持）
+    let touchStartX = 0;
+    let touchStartY = 0;
+    
+
+    
+    canvas.addEventListener('touchstart', (event) => {
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+        event.preventDefault();
+    });
+    
+    canvas.addEventListener('touchmove', (event) => {
+        event.preventDefault();
+    });
+    
+    canvas.addEventListener('touchend', (event) => {
+        if (isGameOver) return;
+        
+        const touchEndX = event.changedTouches[0].clientX;
+        const touchEndY = event.changedTouches[0].clientY;
+        
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+        
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            // 水平滑动
+            if (diffX > 0 && direction !== 'left') {
+                nextDirection = 'right';
+            } else if (diffX < 0 && direction !== 'right') {
+                nextDirection = 'left';
+            }
+        } else {
+            // 垂直滑动
+            if (diffY > 0 && direction !== 'up') {
+                nextDirection = 'down';
+            } else if (diffY < 0 && direction !== 'down') {
+                nextDirection = 'up';
+            }
+        }
+        
+        event.preventDefault();
+    });
+    
+    // 速度滑块事件监听
+    document.getElementById('speedSlider').addEventListener('input', function(e) {
+        gameSpeed = 350 - e.target.value; // 反转值：滑块值越大，速度越快
+        
+        // 更新速度显示文本
+        const speedValue = document.getElementById('speedValue');
+        if (gameSpeed <= 100) {
+            speedValue.textContent = '极快';
+        } else if (gameSpeed <= 150) {
+            speedValue.textContent = '快速';
+        } else if (gameSpeed <= 200) {
+            speedValue.textContent = '中速';
+        } else if (gameSpeed <= 250) {
+            speedValue.textContent = '慢速';
+        } else {
+            speedValue.textContent = '极慢';
+        }
+        
+        // 如果游戏正在进行，立即应用新速度
+        if (gameInterval && !isPaused && !isGameOver) {
+            updateGameSpeed();
+        }
+    });
 });
