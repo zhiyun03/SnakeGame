@@ -11,7 +11,9 @@
         <h1>🐍 贪吃蛇游戏</h1>
         
         <div class="game-container">
-            <canvas id="gameCanvas" width="400" height="400"></canvas>
+            <div class="game-canvas-container">
+                <canvas id="gameCanvas" width="360" height="360"></canvas>
+            </div>
             
             <div class="controls">
                 <div class="score-board">
@@ -29,10 +31,34 @@
                     <p>操作说明: 使用 ↑ ↓ ← → 方向键控制蛇的移动</p>
                 </div>
                 
-                <div class="speed-control">
-                    <label for="speedSlider">游戏速度:</label>
-                    <input type="range" id="speedSlider" min="50" max="300" step="10" value="150">
-                    <span id="speedValue">中速</span>
+                <div class="control-row">
+                    <div class="speed-control">
+                        <label for="speedSlider">速度:</label>
+                        <input type="range" id="speedSlider" min="50" max="300" step="10" value="150">
+                        <span id="speedValue">中速</span>
+                    </div>
+                    
+                    <div class="skin-selector">
+                        <label>皮肤:</label>
+                        <select id="skinSelect" onchange="changeSkin(this.value)">
+                            <option value="rainbow">🌈 彩虹</option>
+                            <option value="neon">💫 霓虹</option>
+                            <option value="fire">🔥 火焰</option>
+                            <option value="ocean">🌊 海洋</option>
+                            <option value="classic">🐍 经典</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="food-legend">
+                    <h4>食物效果:</h4>
+                    <div class="food-grid">
+                        <div class="food-item">🍎 +10分</div>
+                        <div class="food-item">🍇 +20分,长2节</div>
+                        <div class="food-item">⚡ +15分,加速</div>
+                        <div class="food-item">🍄 +5分,缩短</div>
+                        <div class="food-item">💎 +50分,稀有</div>
+                    </div>
                 </div>
             </div>
         </div>
